@@ -2,7 +2,7 @@ import hikari, lightbulb, aiohttp, bs4, dotenv, asyncio, os
 
 dotenv.load_dotenv()
 
-words = os.environ["WORDS"]
+words = os.environ["WORDS"].split(", ")
 token = os.environ["BOT_TOKEN"]
 channel = os.environ["CHANNEL_ID"]
 
