@@ -1,4 +1,4 @@
-import hikari, lightbulb, aiohttp, bs4, dotenv, asyncio, os
+import hikari, lightbulb, aiohttp, bs4, dotenv, asyncio, os, logging
 
 dotenv.load_dotenv()
 
@@ -12,40 +12,44 @@ with open('cool.txt', 'w'):
 class MyBot(lightbulb.BotApp):
     def __init__(self):
         self.is_scanning = False
-        super().__init__(token=token)
+        super().__init__(token=token, logs="INFO")
 
 async def get_links(bot: MyBot):
     while True:
+        logging.debug("rahh")
         p = 1
         links = []
         try:
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://spacehey.com/browse?page={p}') as resp:
-                    page
                     page = await resp.text()            
         except:
             p = 1
             break
 
-        soup = bs4.BeautifulSoup(page.text, "html.parser")
+        soup = bs4.BeautifulSoup(page, "html.parser")
         results = soup.find("div", class_="inner").find_all("a")
 
+        logging.debug("loop 2")
         for res in results:
             if "profile?id" in res["href"]:
                 links.append(res["href"])
 
+        logging.debug("loop 3")
         for link in links:
             while bot.is_scanning is False:
+                logging.debug("False")
                 await asyncio.sleep(20)
             await asyncio.sleep(6.5)
             async with aiohttp.ClientSession() as cs:
                 async with cs.get(f'https://spacehey.com{link}') as resp:
                     profile = await resp.text()
+                    logging.debug("here?")
                     for w in words:
                         found = profile.lower().find(w)
                         if found != -1:
-                            print(link)
-                            print(w)
+                            logging.debug(link)
+                            logging.debug(w)
                             with open('cool.txt', 'r') as f:
                                 if link in f.read():
                                     break
@@ -54,7 +58,7 @@ async def get_links(bot: MyBot):
                                 channel_object: hikari.TextableChannel = bot.cache.get_guild_channel(channel)
                                 await channel_object.send(f'https://spacehey.com{link} - {w}')
                             break
-                    print("keywords not found! next...")
+                    logging.debug("keywords not found! next...")
                 p += 1
 
 bot = MyBot()
