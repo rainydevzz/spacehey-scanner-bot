@@ -55,7 +55,7 @@ async def get_links(bot: MyBot):
                                     break
                             with open('cool.txt', 'a') as f:
                                 f.write(f'https://spacehey.com{link} - {w}\n')
-                                channel_object: hikari.TextableChannel = bot.cache.get_guild_channel(channel)
+                                channel_object: hikari.TextableChannel = bot.cache.get_guild_channel(int(channel))
                                 await channel_object.send(f'https://spacehey.com{link} - {w}')
                             break
                     logging.debug("keywords not found! next...")
