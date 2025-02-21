@@ -1,5 +1,7 @@
 # Spacehey Scanner Bot
 
+**This repository has been archived as a part of my partial migration to Codeberg. As far as I know, it is still functional, but no further updates will be received to this repository. Any further development will happen on my [Codeberg](https://codeberg.org/rainy)**
+
 This is a derivative of my other project, [Spacehey Scanner](https://github.com/rainydevzz/spacehey-scanner). In this project I have integrated its functionality into a Discord Bot that you can host yourself.
 
 ### How It Works
